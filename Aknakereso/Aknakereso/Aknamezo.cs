@@ -17,7 +17,7 @@ namespace Aknakereso
         }
 
         mezo[,] matrix;
-        public Aknamezo(Aknamezo a)
+        public Aknamezo(mezo[,] a)
         {
             Aknamezo b = new Aknamezo(a.GetLength(0), a.GetLength(1));
 
@@ -55,6 +55,11 @@ namespace Aknakereso
         {
             get { return matrix[i, j]; }
             set { matrix[i, j] = value; }
+        }
+
+        public WhatIsGameState()
+        {
+
         }
 
     }
