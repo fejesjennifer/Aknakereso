@@ -70,5 +70,30 @@ namespace Aknakereso
                 }
             }
         }
+
+        }
+
+        public int[,] GetAknamForAI()
+        {
+            int m = this.GetLength(0);
+            int n = this.GetLength(1);
+            int[,] Return = new int[this.GetLength(0), this.GetLength(1)];
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (this[i, j].flagged)
+                    {
+                        Return[i, j] = -2;
+                    }
+                    else if (!this[i, j].visible)
+                    {
+                        Return[i, j] = -1;
+                    }
+                    else Return[i, j] = this[i, j].value;
+                }
+            }
+            return Return;
+        }
     }
 }
