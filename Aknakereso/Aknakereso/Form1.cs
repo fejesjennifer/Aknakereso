@@ -16,5 +16,10 @@ namespace Aknakereso
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var x = Saves.Load("NewFolder1\\elsoprobalkozas.txt");
+        }
     }
 }

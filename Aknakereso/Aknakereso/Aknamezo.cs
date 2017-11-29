@@ -34,16 +34,16 @@ namespace Aknakereso
             Matrix = new mezo[n, m];
         }
 
-        public Aknamezo(mezo[,] a)
+        public Aknamezo(mezo[,] a) : this(a.GetLength(0), a.GetLength(1))
         {
-            Aknamezo b = new Aknamezo(a.GetLength(0), a.GetLength(1));
+//            Aknamezo b = new Aknamezo(a.GetLength(0), a.GetLength(1));
 
-            for (int i = 0; i < b.GetLength(0); i++)
+            for (int i = 0; i < this.GetLength(0); i++)
             {
 
-                for (int j = 0; j < b.GetLength(1); j++)
+                for (int j = 0; j < this.GetLength(1); j++)
                 {
-                    b[i, j] = a[i, j];
+                    Matrix[i, j] = a[i, j];
                 }
             }
         }
@@ -77,7 +77,7 @@ namespace Aknakereso
         {
             int m = this.GetLength(0);
             int n = this.GetLength(1);
-            int[,] Return = new int[this.GetLength(0), this.GetLength(1)];
+            int[,] Return = new int[m, n];
             for (int i = 0; i < m; i++)
             {
                 for (int j = 0; j < n; j++)
