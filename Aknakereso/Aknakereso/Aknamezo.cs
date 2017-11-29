@@ -31,6 +31,9 @@ namespace Aknakereso
             }
         }
         // baszas
+        // i wanna kill myself! 
+
+
         public Aknamezo(int n, int m)
         {
             matrix = new mezo[n, m];
