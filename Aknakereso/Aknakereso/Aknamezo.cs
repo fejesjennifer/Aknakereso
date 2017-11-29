@@ -71,7 +71,7 @@ namespace Aknakereso
             }
         }
 
-        }
+        
 
         public int[,] GetAknamForAI()
         {
