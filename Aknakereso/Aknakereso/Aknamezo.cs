@@ -15,7 +15,7 @@ namespace Aknakereso
             public bool flagged;
 
         }
-
+        
         mezo[,] matrix;
         public Aknamezo(mezo[,] a)
         {
@@ -57,9 +57,9 @@ namespace Aknakereso
             set { matrix[i, j] = value; }
         }
 
-        public WhatIsGameState()
+        public void WhatIsGameState()
         {
-
+            
         }
 
     }
