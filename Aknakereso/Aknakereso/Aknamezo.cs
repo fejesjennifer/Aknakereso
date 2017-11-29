@@ -17,6 +17,18 @@ namespace Aknakereso
         }
         
         mezo[,] matrix;
+
+        enum gameState
+        {
+            inProgress
+        }
+
+        #region Konstruktorok
+        public Aknamezo(int n, int m)
+        {
+            matrix = new mezo[n, m];
+        }
+
         public Aknamezo(mezo[,] a)
         {
             Aknamezo b = new Aknamezo(a.GetLength(0), a.GetLength(1));
@@ -30,21 +42,7 @@ namespace Aknakereso
                 }
             }
         }
-        // baszas
-        // i wanna kill myself! 
-
-
-        public Aknamezo(int n, int m)
-        {
-            matrix = new mezo[n, m];
-
-
-        }
-        public mezo[,] getAknamezo(int n, int m)
-        {
-            mezo[,] a = new mezo[n, m];
-            return a;
-        }
+        #endregion
 
         public int GetLength(int dimension)
         {
