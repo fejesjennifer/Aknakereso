@@ -15,18 +15,23 @@ namespace Aknakereso
             public bool flagged;
 
         }
-        
-        mezo[,] matrix;
 
         enum gameState
         {
-            inProgress
-        }
+            inProgress,
+            won,
+            lose,
+            gavenUp
+        };
+
+        mezo[,] Matrix;
+
+        gameState current = gameState.inProgress;
 
         #region Konstruktorok
         public Aknamezo(int n, int m)
         {
-            matrix = new mezo[n, m];
+            Matrix = new mezo[n, m];
         }
 
         public Aknamezo(mezo[,] a)
@@ -46,19 +51,24 @@ namespace Aknakereso
 
         public int GetLength(int dimension)
         {
-            return matrix.GetLength(dimension);
+            return Matrix.GetLength(dimension);
         }
 
         public mezo this[int i, int j]
         {
-            get { return matrix[i, j]; }
-            set { matrix[i, j] = value; }
+            get { return Matrix[i, j]; }
+            set { Matrix[i, j] = value; }
         }
 
         public void WhatIsGameState()
         {
-            
-        }
+            for (int i = 0; i < this.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.GetLength(1); j++)
+                {
 
+                }
+            }
+        }
     }
 }
