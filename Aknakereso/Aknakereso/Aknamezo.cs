@@ -15,8 +15,20 @@ namespace Aknakereso
             public bool flagged;
 
         }
-        
+
         mezo[,] matrix;
+
+        enum gameState
+        {
+            inProgress
+        }
+
+        #region Konstruktorok
+        public Aknamezo(int n, int m)
+        {
+            matrix = new mezo[n, m];
+        }
+
         public Aknamezo(mezo[,] a)
         {
             Aknamezo b = new Aknamezo(a.GetLength(0), a.GetLength(1));
@@ -30,21 +42,7 @@ namespace Aknakereso
                 }
             }
         }
-        // baszas
-        // i wanna kill myself! 
-
-
-        public Aknamezo(int n, int m)
-        {
-            matrix = new mezo[n, m];
-
-
-        }
-        public mezo[,] getAknamezo(int n, int m)
-        {
-            mezo[,] a = new mezo[n, m];
-            return a;
-        }
+        #endregion
 
         public int GetLength(int dimension)
         {
@@ -59,8 +57,30 @@ namespace Aknakereso
 
         public void WhatIsGameState()
         {
-            
+
         }
 
+        public int[,] GetAknamForAI()
+        {
+            int m = this.GetLength(0);
+            int n = this.GetLength(1);
+            int[,] Return = new int[this.GetLength(0), this.GetLength(1)];
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (this[i, j].flagged)
+                    {
+                        Return[i, j] = -2;
+                    }
+                    else if (!this[i, j].visible)
+                    {
+                        Return[i, j] = -1;
+                    }
+                    else Return[i, j] = this[i, j].value;
+                }
+            }
+            return Return;
+        }
     }
 }
