@@ -30,6 +30,7 @@ namespace Aknakereso
                 }
             }
         }
+        // baszas
         public Aknamezo(int n, int m)
         {
             matrix = new mezo[n, m];
