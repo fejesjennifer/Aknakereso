@@ -70,22 +70,24 @@ namespace Aknakereso
             Application.Exit();
         }
 
-        private void bt_play_Click(object sender, EventArgs e)
+        public void bt_play_Click(object sender, EventArgs e)
         {
-            GameForm gf = new GameForm();
+            GameForm gf = new GameForm(Saves.Generate((int)this.nUD_height.Value, (int)this.nUD_width.Value, (int)this.nUD_mines.Value));
             this.Hide();
             gf.ShowDialog();
             this.Show();
+            
         }
 
         private void bt_load_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Text File | *.txt";
-            ofd.InitialDirectory = @"C:\Users\Suli\Desktop";
+            ofd.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                GameForm gf = new GameForm();
+                var mezo = Saves.Load(ofd.FileName);
+                GameForm gf = new GameForm(mezo);
                 this.Hide();
                 gf.ShowDialog();
                 this.Show();

@@ -27,13 +27,14 @@ namespace Aknakereso
             }
             f.Close();
         }
+
         public static Aknamezo Load(string path)
         {
             StreamReader f = new StreamReader(path);
             string[] s = f.ReadLine().Split(';');
-            Aknamezo.mezo[,] Out = new Aknamezo.mezo[int.Parse(s[0]), int.Parse(s[1])];
             int m = int.Parse(s[0]);
             int n = int.Parse(s[1]);
+            Aknamezo.mezo[,] Out = new Aknamezo.mezo[m, n];
             for (int i = 0; i < m; i++)
             {
                 s = f.ReadLine().Split(';');
@@ -48,6 +49,33 @@ namespace Aknakereso
             Aknamezo BeviteliAknamezo = new Aknamezo(Out);
             f.Close();
             return BeviteliAknamezo;
+        }
+
+        public static Aknamezo Generate(int height, int width, int mines)
+        {
+            Aknamezo.mezo[,] Out = new Aknamezo.mezo[height, width];
+            int mineCount = 0;
+            Random rand = new Random();
+            while (mineCount < mines) {
+                var pos = new Tuple<int, int>(rand.Next(height), rand.Next(width));
+                if (Out[pos.Item1, pos.Item2].value == -1) continue;
+                Out[pos.Item1, pos.Item2].value = -1;
+                ++mineCount;
+                for (int i = -1; i <= 1; i++)
+                {
+                    for (int j = -1; j <= 1; ++j) {
+                        try
+                        {
+                            var m = Out[pos.Item1 + i, pos.Item2 + j];
+                            if (m.value != -1) ++m.value;
+                        }
+                        catch {
+                        }
+                    }
+                }
+            }
+            Aknamezo retval = new Aknamezo(Out);
+            return retval;
         }
     }
 }
