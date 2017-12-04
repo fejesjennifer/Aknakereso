@@ -97,6 +97,9 @@
     <Content Include="NewFolder1\elsoprobalkozas.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="NewFolder1\harmadik.txt" />
+    <Content Include="NewFolder1\masodik.txt" />
+    <Content Include="NewFolder1\negyedik.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
