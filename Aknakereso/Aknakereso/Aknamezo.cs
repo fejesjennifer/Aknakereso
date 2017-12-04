@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Aknakereso
 {
-    public class Aknamezo
+    class Aknamezo
     {
         public struct mezo
         {
@@ -16,7 +16,7 @@ namespace Aknakereso
 
         }
 
-        enum gameState
+        public enum gameState
         {
             inProgress,
             won,
@@ -26,9 +26,7 @@ namespace Aknakereso
 
         mezo[,] Matrix;
 
-        gameState current = gameState.inProgress;
-
-        #region Konstruktorok
+        #region Constructors
         public Aknamezo(int n, int m)
         {
             Matrix = new mezo[n, m];
@@ -36,10 +34,12 @@ namespace Aknakereso
 
         public Aknamezo(mezo[,] a) : this(a.GetLength(0), a.GetLength(1))
         {
-            for (int i = 0; i < a.GetLength(0); i++)
+            //            Aknamezo b = new Aknamezo(a.GetLength(0), a.GetLength(1));
+
+            for (int i = 0; i < this.GetLength(0); i++)
             {
 
-                for (int j = 0; j < a.GetLength(1); j++)
+                for (int j = 0; j < this.GetLength(1); j++)
                 {
                     Matrix[i, j] = a[i, j];
                 }
@@ -58,37 +58,42 @@ namespace Aknakereso
             set { Matrix[i, j] = value; }
         }
 
-        public void WhatIsGameState()
+        public gameState WhatIsGameState()
         {
-            for (int i = 0; i < this.GetLength(0); i++)
-            {
-                for (int j = 0; j < this.GetLength(1); j++)
-                {
+            Tuple<int, int> coordinates;
+            bool isPoke;
+            gameState currentGameState = gameState.won;
 
-                }
-            }
-        }        
+            try { isPoke = DummyAI.choice(GetAknamForAI(), out coordinates); }
+            catch { return gameState.gavenUp; }
+
+            if (!isPoke) return gameState.inProgress;
+
+            for (int i = 0; i < this.GetLength(0); i++)
+                for (int j = 0; j < this.GetLength(1); j++)
+                    if (this[i, j].visible == true && this[i, j].value == -1)
+                        return gameState.lose;
+
+            for (int i = 0; i < this.GetLength(0); i++)
+                for (int j = 0; j < this.GetLength(1); j++)
+                    if (this[i, j].visible == false && this[i, j].value != -1)
+                        return gameState.inProgress;
+
+            return currentGameState;
+        }
 
         public int[,] GetAknamForAI()
         {
             int m = this.GetLength(0);
             int n = this.GetLength(1);
-            int[,] Return = new int[this.GetLength(0), this.GetLength(1)];
+            int[,] Return = new int[m, n];
             for (int i = 0; i < m; i++)
-            {
                 for (int j = 0; j < n; j++)
                 {
-                    if (this[i, j].flagged)
-                    {
-                        Return[i, j] = -2;
-                    }
-                    else if (!this[i, j].visible)
-                    {
-                        Return[i, j] = -1;
-                    }
+                    if (this[i, j].flagged) Return[i, j] = -2;
+                    else if (!this[i, j].visible) Return[i, j] = -1;
                     else Return[i, j] = this[i, j].value;
                 }
-            }
             return Return;
         }
     }
