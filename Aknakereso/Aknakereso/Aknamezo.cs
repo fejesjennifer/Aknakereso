@@ -16,7 +16,7 @@ namespace Aknakereso
 
         }
 
-        enum gameState
+        public enum gameState
         {
             inProgress,
             won,
@@ -60,15 +60,47 @@ namespace Aknakereso
             set { Matrix[i, j] = value; }
         }
 
-        public void WhatIsGameState()
+        public gameState WhatIsGameState()
         {
+            Tuple<int, int> coordinates;
+            bool isPoke;
+            gameState currentGameState = gameState.won;
+            
+            try
+            {
+                isPoke = DummyAI.choice(GetAknamForAI(), out coordinates);
+            }
+            catch
+            {
+                return gameState.gavenUp;
+            }
+
+            if (!isPoke) return gameState.inProgress;
+
             for (int i = 0; i < this.GetLength(0); i++)
             {
                 for (int j = 0; j < this.GetLength(1); j++)
                 {
-
+                    if (this[i, j].visible == true && this[i, j].value == -1) 
+                    {
+                        return gameState.lose;
+                    }
                 }
             }
+
+            for (int i = 0; i < this.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.GetLength(1); j++)
+                {
+                    if (this[i, j].visible == false && this[i, j].value != -1)
+                    {
+                        return gameState.inProgress;
+                    }
+                }
+            }
+
+            return currentGameState;
+           
         }
 
         
