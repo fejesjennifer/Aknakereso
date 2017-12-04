@@ -97,9 +97,9 @@ namespace Aknakereso
             return Return;
         }
 
-        public void MezoFelfed(Tuple<int, int> pos ,bool flaged)
+        public void MezoFelfed(Tuple<int, int> pos ,bool flagged)
         {
-            if (flaged)
+            if (flagged)
             {
                 Matrix[pos.Item1, pos.Item2].flagged = !Matrix[pos.Item1, pos.Item2].flagged;
             }

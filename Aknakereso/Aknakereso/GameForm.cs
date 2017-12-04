@@ -19,6 +19,7 @@ namespace Aknakereso
         private GameForm()
         {
             InitializeComponent();
+            DoubleBuffered = true;
         }
 
         void SetTable()
@@ -33,6 +34,7 @@ namespace Aknakereso
 
         void DisplayMezo()
         {
+            Controls.Remove(tLP_board);
             tLP_board.Controls.Clear();
             for (int i = 0; i < height; ++i) {
                 for (int j = 0; j < width; ++j) {
@@ -54,6 +56,7 @@ namespace Aknakereso
                     tLP_board.Controls.Add(c, j, i);
                 }
             }
+            Controls.Add(tLP_board);
         }
 
         private void C_MouseUp(object sender, MouseEventArgs e)
