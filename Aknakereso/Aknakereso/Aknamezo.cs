@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Aknakereso
 {
-    class Aknamezo
+    public class Aknamezo
     {
         public struct mezo
         {
@@ -95,6 +95,18 @@ namespace Aknakereso
                     else Return[i, j] = this[i, j].value;
                 }
             return Return;
+        }
+
+        public void MezoFelfed(Tuple<int, int> pos ,bool flaged)
+        {
+            if (flaged)
+            {
+                Matrix[pos.Item1, pos.Item2].flagged = !Matrix[pos.Item1, pos.Item2].flagged;
+            }
+            else
+            {
+                Matrix[pos.Item1, pos.Item2].visible = true;
+            }
         }
     }
 }

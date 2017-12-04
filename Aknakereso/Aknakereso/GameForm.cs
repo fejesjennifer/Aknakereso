@@ -42,12 +42,12 @@ namespace Aknakereso
                         c = new Label() {
                             TextAlign = ContentAlignment.MiddleCenter
                         };
-                        c.Text = mezo[i, j].value.ToString();
+                        c.Text = mezo[i, j].value == -1 ? "B" : mezo[i, j].value.ToString();
                     }
                     else {
                         c = new Button();
                         c.Text = mezo[i, j].flagged ? "F" : "";
-                        c.Click += C_Click;
+                        c.MouseUp += C_MouseUp;
                     }
                     c.Tag = new Tuple<int, int>(i, j);
                     c.Dock = DockStyle.Fill;
@@ -56,10 +56,29 @@ namespace Aknakereso
             }
         }
 
-        private void C_Click(object sender, EventArgs e)
+        private void C_MouseUp(object sender, MouseEventArgs e)
         {
-            var pos = (Tuple<int,int>)((Button)sender).Tag;
-
+            var pos = (Tuple<int, int>)((Button)sender).Tag;
+            mezo.MezoFelfed(pos, e.Button == MouseButtons.Right);
+            DisplayMezo();
+            switch (mezo.WhatIsGameState())
+            {
+                case Aknamezo.gameState.inProgress:
+                    break;
+                case Aknamezo.gameState.won:
+                    MessageBox.Show("Nyertél!");
+                    this.Close();
+                    break;
+                case Aknamezo.gameState.lose:
+                    MessageBox.Show("Vesztettél");
+                    this.Close();
+                    break;
+                case Aknamezo.gameState.gavenUp:
+                    this.Close();
+                    break;
+                default:
+                    break;
+            }
         }
 
         public GameForm(Aknamezo mezo) : this()

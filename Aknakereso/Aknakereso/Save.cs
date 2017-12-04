@@ -66,8 +66,7 @@ namespace Aknakereso
                     for (int j = -1; j <= 1; ++j) {
                         try
                         {
-                            var m = Out[pos.Item1 + i, pos.Item2 + j];
-                            if (m.value != -1) ++m.value;
+                            if (Out[pos.Item1 + i, pos.Item2 + j].value != -1) ++Out[pos.Item1 + i, pos.Item2 + j].value;
                         }
                         catch {
                         }
