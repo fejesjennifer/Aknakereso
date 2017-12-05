@@ -46,8 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\Basa_Budahazy_FeketeAI.cs" />
+    <Compile Include="AI\IAI.cs" />
     <Compile Include="Aknamezo.cs" />
-    <Compile Include="DummyAI.cs" />
+    <Compile Include="AI\DummyAI.cs" />
     <Compile Include="MenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,12 +94,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="NewFolder1\elsoprobalkozas.txt">
+    <Content Include="testCases\elsoprobalkozas.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="NewFolder1\harmadik.txt" />
-    <Content Include="NewFolder1\masodik.txt" />
-    <Content Include="NewFolder1\negyedik.txt" />
+    <Content Include="testCases\harmadik.txt" />
+    <Content Include="testCases\masodik.txt" />
+    <Content Include="testCases\negyedik.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

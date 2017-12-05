@@ -62,9 +62,10 @@ namespace Aknakereso
         {
             Tuple<int, int> coordinates;
             bool isPoke;
+            DummyAI AI = new DummyAI(); // Change this constructor to chose AI type.
             gameState currentGameState = gameState.won;
 
-            try { isPoke = DummyAI.choice(GetAknamForAI(), out coordinates); }
+            try { isPoke = AI.choice(GetAknamForAI(), out coordinates); }
             catch { return gameState.gavenUp; }
 
             if (!isPoke) return gameState.inProgress;
@@ -86,15 +87,15 @@ namespace Aknakereso
         {
             int m = this.GetLength(0);
             int n = this.GetLength(1);
-            int[,] Return = new int[m, n];
+            int[,] result = new int[m, n];
             for (int i = 0; i < m; i++)
                 for (int j = 0; j < n; j++)
                 {
-                    if (this[i, j].flagged) Return[i, j] = -2;
-                    else if (!this[i, j].visible) Return[i, j] = -1;
-                    else Return[i, j] = this[i, j].value;
+                    if (this[i, j].flagged) result[i, j] = -2;
+                    else if (!this[i, j].visible) result[i, j] = -1;
+                    else result[i, j] = this[i, j].value;
                 }
-            return Return;
+            return result;
         }
 
         public void MezoFelfed(Tuple<int, int> pos ,bool flagged)
