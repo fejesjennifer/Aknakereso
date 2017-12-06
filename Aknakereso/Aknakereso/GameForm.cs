@@ -108,5 +108,17 @@ namespace Aknakereso
             var left = ai.choice(mezo.GetAknamForAI(), out pos);
             PosClicked(pos, !left);
         }
+
+        private void Solve_btn_Click(object sender, EventArgs e)
+        {
+            while (mezo.WhatIsGameState() == Aknamezo.gameState.inProgress)
+            {
+                IAI ai = new Basa_Budahazy_FeketeAI();
+                Tuple<int, int> pos;
+                var left = ai.choice(mezo.GetAknamForAI(), out pos);
+                PosClicked(pos, !left);
+                Application.DoEvents();
+            }
+        }
     }
 }
