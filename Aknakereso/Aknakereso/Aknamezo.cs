@@ -18,10 +18,12 @@ namespace Aknakereso
 
         public enum gameState
         {
+            gavenUp,
             inProgress,
-            won,
+            
             lose,
-            gavenUp
+            
+            won
         };
 
         mezo[,] Matrix;
