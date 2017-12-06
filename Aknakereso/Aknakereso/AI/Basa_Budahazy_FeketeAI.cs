@@ -67,8 +67,8 @@ namespace Aknakereso
             int j = y != 0 ? y - 1 : y;
             int m = y != input.GetLength(1) ? y + 1 : y;
 
-            for (; i <= n; i++)
-                for (; j <= m; j++)
+            for (; i < n; i++)
+                for (; j < m; j++)
                     if (input[i, j] == -1) return new Tuple<int, int>(i, j); ;
 
             return new Tuple<int, int>(-1, -1);
@@ -84,8 +84,8 @@ namespace Aknakereso
             int j = y != 0 ? y - 1 : y;
             int m = y != input.GetLength(1) ? y + 1 : y;
 
-            for (; i <= n; i++)
-                for (; j <= m; j++)
+            for (; i < n; i++)
+                for (; j < m; j++)
                     if (input[i, j] == -2) count++;
 
             return count;
@@ -101,8 +101,8 @@ namespace Aknakereso
             int j = y != 0 ? y - 1 : y;
             int m = y != input.GetLength(1) ? y + 1 : y;
 
-            for (; i <= n; i++)
-                for (; j <= m; j++)
+            for (; i < n; i++)
+                for (; j < m; j++)
                     if (input[i, j] == -1) count++;
 
             return count;

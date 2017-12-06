@@ -59,10 +59,8 @@ namespace Aknakereso
             Controls.Add(tLP_board);
         }
 
-        private void C_MouseUp(object sender, MouseEventArgs e)
-        {
-            var pos = (Tuple<int, int>)((Button)sender).Tag;
-            mezo.MezoFelfed(pos, e.Button == MouseButtons.Right);
+        void PosClicked(Tuple<int, int> pos, bool right) {
+            mezo.MezoFelfed(pos, right);
             DisplayMezo();
             switch (mezo.WhatIsGameState())
             {
@@ -84,6 +82,12 @@ namespace Aknakereso
             }
         }
 
+        private void C_MouseUp(object sender, MouseEventArgs e)
+        {
+            var pos = (Tuple<int, int>)((Button)sender).Tag;
+            PosClicked(pos, e.Button == MouseButtons.Right);
+        }
+
         public GameForm(Aknamezo mezo) : this()
         {
             this.mezo = mezo;
@@ -95,6 +99,14 @@ namespace Aknakereso
         {
             MenuForm mf = new MenuForm();
             
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            IAI ai = new Basa_Budahazy_FeketeAI();
+            Tuple<int, int> pos;
+            var left = ai.choice(mezo.GetAknamForAI(), out pos);
+            PosClicked(pos, !left);
         }
     }
 }

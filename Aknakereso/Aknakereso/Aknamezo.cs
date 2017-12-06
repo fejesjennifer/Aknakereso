@@ -62,13 +62,11 @@ namespace Aknakereso
         {
             Tuple<int, int> coordinates;
             bool isPoke;
-            DummyAI AI = new DummyAI(); // Change this constructor to chose AI type.
+            //DummyAI AI = new DummyAI(); // Change this constructor to chose AI type.
             gameState currentGameState = gameState.won;
 
-            try { isPoke = AI.choice(GetAknamForAI(), out coordinates); }
-            catch { return gameState.gavenUp; }
-
-            if (!isPoke) return gameState.inProgress;
+            //try { isPoke = AI.choice(GetAknamForAI(), out coordinates); }
+            //catch { return gameState.gavenUp; }
 
             for (int i = 0; i < this.GetLength(0); i++)
                 for (int j = 0; j < this.GetLength(1); j++)
