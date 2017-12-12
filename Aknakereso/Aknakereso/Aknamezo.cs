@@ -20,9 +20,9 @@ namespace Aknakereso
         {
             gavenUp,
             inProgress,
-            
+
             lose,
-            
+
             won
         };
 
@@ -62,8 +62,8 @@ namespace Aknakereso
 
         public gameState WhatIsGameState()
         {
-            Tuple<int, int> coordinates;
-            bool isPoke;
+            //Tuple<int, int> coordinates;
+            //bool isPoke;
             //DummyAI AI = new DummyAI(); // Change this constructor to chose AI type.
             gameState currentGameState = gameState.won;
 
@@ -98,14 +98,48 @@ namespace Aknakereso
             return result;
         }
 
-        public void MezoFelfed(Tuple<int, int> pos ,bool flagged)
+        private void MezoRobbantas(Tuple<int, int> pos)
+        {
+            if (Matrix[pos.Item1, pos.Item2].visible == false)
+            {
+                Matrix[pos.Item1, pos.Item2].visible = true;
+                for (int i = -1; i < 2; i++)
+                {
+                    for (int j = -1; j < 2; j++)
+                    {
+                        try
+                        {
+                            if (Matrix[pos.Item1 + i, pos.Item2 + j].visible == false && Matrix[pos.Item1, pos.Item2].value == 0)
+                            {
+                                MezoRobbantas(new Tuple<int, int>(pos.Item1 + i, pos.Item2 + j));
+                            }
+                        }
+                        catch (IndexOutOfRangeException ex)
+                        {
+
+                            continue;
+                        }
+                        
+                    }
+                }
+            }
+        }
+
+        public void MezoFelfed(Tuple<int, int> pos, bool flagged)
         {
             if (flagged)
             {
                 Matrix[pos.Item1, pos.Item2].flagged = !Matrix[pos.Item1, pos.Item2].flagged;
+                return;
             }
-            else
+
+            if (!Matrix[pos.Item1, pos.Item2].flagged)
             {
+                if (Matrix[pos.Item1, pos.Item2].value == 0)
+                {
+                    MezoRobbantas(new Tuple<int, int>(pos.Item1, pos.Item2));
+                    return;
+                }
                 Matrix[pos.Item1, pos.Item2].visible = true;
             }
         }
