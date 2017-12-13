@@ -37,17 +37,21 @@ namespace Aknakereso
         {
             Controls.Remove(tLP_board);
             tLP_board.Controls.Clear();
-            for (int i = 0; i < height; ++i) {
-                for (int j = 0; j < width; ++j) {
+            for (int i = 0; i < height; ++i)
+            {
+                for (int j = 0; j < width; ++j)
+                {
                     Control c;
                     if (mezo[i, j].visible)
                     {
-                        c = new Label() {
+                        c = new Label()
+                        {
                             TextAlign = ContentAlignment.MiddleCenter
                         };
                         c.Text = mezo[i, j].value == -1 ? "B" : mezo[i, j].value.ToString();
                     }
-                    else {
+                    else
+                    {
                         c = new Button();
                         c.Text = mezo[i, j].flagged ? "F" : "";
                         c.MouseUp += C_MouseUp;
@@ -60,27 +64,31 @@ namespace Aknakereso
             Controls.Add(tLP_board);
         }
 
-        void PosClicked(Tuple<int, int> pos, bool right) {
+        void PosClicked(Tuple<int, int> pos, bool right)
+        {
             mezo.MezoFelfed(pos, right);
-            DisplayMezo();
+            if (InvokeRequired) Invoke(new MethodInvoker(() => DisplayMezo())); else DisplayMezo();
+            bool close = false;
             switch (mezo.WhatIsGameState())
             {
                 case Aknamezo.gameState.inProgress:
                     break;
                 case Aknamezo.gameState.won:
                     MessageBox.Show("Nyertél!");
-                    this.Close();
+                    close = true;
                     break;
                 case Aknamezo.gameState.lose:
                     MessageBox.Show("Vesztettél");
-                    this.Close();
+                    close = true;
                     break;
                 case Aknamezo.gameState.gavenUp:
-                    this.Close();
+                    close = true;
                     break;
                 default:
                     break;
             }
+            if (close)
+                if (InvokeRequired) Invoke(new MethodInvoker(() => Close())); else Close();
         }
 
         private void C_MouseUp(object sender, MouseEventArgs e)
@@ -99,7 +107,7 @@ namespace Aknakereso
         private void GameForm_Load(object sender, EventArgs e)
         {
             MenuForm mf = new MenuForm();
-            
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -114,19 +122,19 @@ namespace Aknakereso
         }
 
         private void solveStep()
-        {          
-                IAI ai = new Basa_Budahazy_FeketeAI();
-                Tuple<int, int> pos;
-                var left = ai.choice(mezo.GetAknamForAI(), out pos);
-                PosClicked(pos, !left);
+        {
+            IAI ai = new Basa_Budahazy_FeketeAI();
+            Tuple<int, int> pos;
+            var left = ai.choice(mezo.GetAknamForAI(), out pos);
+            PosClicked(pos, !left);
         }
 
         private void solveIt()
         {
             while (mezo.WhatIsGameState() == Aknamezo.gameState.inProgress)
             {
+                //Thread.Sleep(1);
                 solveStep();
-                Application.DoEvents();
             }
         }
 

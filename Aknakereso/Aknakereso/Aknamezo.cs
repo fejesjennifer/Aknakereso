@@ -20,9 +20,7 @@ namespace Aknakereso
         {
             gavenUp,
             inProgress,
-
             lose,
-
             won
         };
 
@@ -114,7 +112,7 @@ namespace Aknakereso
                                 MezoRobbantas(new Tuple<int, int>(pos.Item1 + i, pos.Item2 + j));
                             }
                         }
-                        catch (IndexOutOfRangeException ex)
+                        catch (IndexOutOfRangeException)
                         {
 
                             continue;
