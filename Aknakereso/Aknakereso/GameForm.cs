@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -103,22 +104,31 @@ namespace Aknakereso
 
         private void button1_Click(object sender, EventArgs e)
         {
-            IAI ai = new Basa_Budahazy_FeketeAI();
-            Tuple<int, int> pos;
-            var left = ai.choice(mezo.GetAknamForAI(), out pos);
-            PosClicked(pos, !left);
+            solveStep();
         }
 
         private void Solve_btn_Click(object sender, EventArgs e)
         {
-            while (mezo.WhatIsGameState() == Aknamezo.gameState.inProgress)
-            {
+            Thread t = new Thread(new ThreadStart(solveIt));
+            t.Start();
+        }
+
+        private void solveStep()
+        {          
                 IAI ai = new Basa_Budahazy_FeketeAI();
                 Tuple<int, int> pos;
                 var left = ai.choice(mezo.GetAknamForAI(), out pos);
                 PosClicked(pos, !left);
+        }
+
+        private void solveIt()
+        {
+            while (mezo.WhatIsGameState() == Aknamezo.gameState.inProgress)
+            {
+                solveStep();
                 Application.DoEvents();
             }
         }
+
     }
 }
